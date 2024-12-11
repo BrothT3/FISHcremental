@@ -35,7 +35,7 @@ namespace Assets.Scripts.FSM
         void SearchForTarget()
         {
             // Find all colliders within the search range
-            Collider2D[] hits = Physics2D.OverlapCircleAll(owner.transform.position, fish.SearchRange);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(owner.transform.position, 500f);
 
             foreach (Collider2D hit in hits)
             {
