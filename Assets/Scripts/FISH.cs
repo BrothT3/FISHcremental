@@ -5,20 +5,38 @@ public class FISH : MonoBehaviour
 {
     public float MoveSpeed = 2f;
     public float Hunger = 0;
+    public float HungerRate = 0.5f;
     public GameObject coinPrefab;
     public float coinDropInterval = 5f;
     public float coinValue = 10f;
     public bool FacingRight;
-    private Animator anim;
+    public Animator anim;
     private void Start()
     {
         // Start dropping coins at regular intervals
         InvokeRepeating(nameof(DropCoin), coinDropInterval, coinDropInterval);
         anim = GetComponentInChildren<Animator>();
     }
+    public void Update()
+    {
+        Hunger += HungerRate * Time.deltaTime;
+    }
     private void DropCoin()
     {
+        Canvas c = FindAnyObjectByType<Canvas>();
         GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+
+        coin.transform.SetParent(c.transform, false);
+        Vector2 canvasPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            c.GetComponent<RectTransform>(),
+            RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position),
+            Camera.main,
+            out canvasPosition
+        );
+
+
+        coin.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
         FishCoin coinScript = coin.GetComponent<FishCoin>();
         if (coinScript != null)
         {

@@ -10,7 +10,6 @@ namespace Assets.Scripts.FSM
     public class AIController : MonoBehaviour
     {
         public FSM FSM;
-        private State currentState;
 
         private void Start()
         {
@@ -23,10 +22,6 @@ namespace Assets.Scripts.FSM
         private void Update()
         {
             FSM.Update();
-            if (gameObject.GetComponent<FISH>().Hunger > 40)
-            {
-                FSM.ChangeState(new SearchForFood(gameObject));
-            }
         }
     }
 }

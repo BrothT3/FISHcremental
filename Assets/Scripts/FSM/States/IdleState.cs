@@ -15,6 +15,7 @@ namespace Assets.Scripts.FSM.States
         public override void Enter()
         {
             timer = Random.Range(0.2f, 0.6f);
+            owner.GetComponent<FISH>().anim.SetBool("FishIdle", true);
         }
 
         public override void Execute()
@@ -24,11 +25,16 @@ namespace Assets.Scripts.FSM.States
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new WanderState(owner));
             }
+            if (owner.GetComponent<FISH>().Hunger > 10)
+            {
+                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFood(owner));
+
+            }
         }
 
         public override void Exit()
         {
-
+            owner.GetComponent<FISH>().anim.SetBool("FishIdle", false);
         }
     }
 }

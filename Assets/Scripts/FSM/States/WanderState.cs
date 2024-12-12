@@ -22,7 +22,6 @@ namespace Assets.Scripts.FSM
             float randomY = UnityEngine.Random.Range(bottomLeft.y, topRight.y);
 
             return new Vector2(randomX, randomY);
-
         }
         public void MoveToNextPos()
         {
@@ -36,7 +35,7 @@ namespace Assets.Scripts.FSM
         public override void Enter()
         {
             Debug.Log("Entering Wander State", owner);
-
+            nextPos = Vector2.zero;
         }
 
         public override void Execute()
@@ -53,8 +52,11 @@ namespace Assets.Scripts.FSM
                 owner.GetComponent<AIController>().FSM.ChangeState(new IdleState(owner));
                 //nextPos = GetNextPos();
             }
-            
+            if (owner.GetComponent<FISH>().Hunger > 10)
+            {
+                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFood(owner));
 
+            }
         }
 
         public override void Exit()
