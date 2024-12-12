@@ -8,11 +8,13 @@ public class FISH : MonoBehaviour
     public GameObject coinPrefab;
     public float coinDropInterval = 5f;
     public float coinValue = 10f;
-
+    public bool FacingRight;
+    private Animator anim;
     private void Start()
     {
         // Start dropping coins at regular intervals
         InvokeRepeating(nameof(DropCoin), coinDropInterval, coinDropInterval);
+        anim = GetComponentInChildren<Animator>();
     }
     private void DropCoin()
     {
@@ -23,6 +25,18 @@ public class FISH : MonoBehaviour
             coinScript.SetupCoin(coinValue);
         }
     }
-
+    public void ChangeFacing(float x)
+    {
+        if (!FacingRight && x > 0)
+        {
+            FacingRight = true;
+            anim.SetTrigger("FaceRight");
+        }
+        if (FacingRight && x < 0)
+        {
+            FacingRight = false;
+            anim.SetTrigger("FaceLeft");
+        }
+    }
 }
 

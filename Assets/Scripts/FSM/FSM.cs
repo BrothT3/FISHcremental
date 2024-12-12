@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.FSM
             currentState?.Exit(); // Call Exit on the old state
             currentState = newState; // Set the new state
             currentState?.Enter(); // Call Enter on the new state
+            UnityEngine.Debug.Log(newState.ToString());
         }
 
         public void Update()

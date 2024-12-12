@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.FSM.States;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Assets.Scripts.FSM
     public class WanderState : State
     {
         public WanderState(GameObject owner) : base(owner) { }
-        private Vector2 nextPos;
+        private Vector2 nextPos = Vector2.zero;
         public Vector2 GetNextPos()
         {
 
@@ -28,6 +29,7 @@ namespace Assets.Scripts.FSM
             Vector2 pos = owner.transform.position;
             Vector2 movedir = nextPos - pos;
             movedir.Normalize();
+            owner.GetComponent<FISH>().ChangeFacing(movedir.x);
             pos += movedir * owner.GetComponent<FISH>().MoveSpeed * Time.deltaTime;
             owner.transform.position = pos;
         }
@@ -40,14 +42,19 @@ namespace Assets.Scripts.FSM
         public override void Execute()
         {
             Debug.Log("Wandering...", owner);
-            if (nextPos == null)
+            if (nextPos == Vector2.zero)
             {
                 nextPos = GetNextPos();
+
             }
             MoveToNextPos();
-            if (Vector2.Distance(owner.transform.position, nextPos) < 3)
-                nextPos = GetNextPos();
-         
+            if (Vector2.Distance(owner.transform.position, nextPos) < 1)
+            {
+                owner.GetComponent<AIController>().FSM.ChangeState(new IdleState(owner));
+                //nextPos = GetNextPos();
+            }
+            
+
         }
 
         public override void Exit()

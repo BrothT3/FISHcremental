@@ -9,7 +9,8 @@ namespace Assets.Scripts.FSM
 {
     public class AIController : MonoBehaviour
     {
-        private FSM FSM;
+        public FSM FSM;
+        private State currentState;
 
         private void Start()
         {
