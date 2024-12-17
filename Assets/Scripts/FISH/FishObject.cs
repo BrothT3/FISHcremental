@@ -8,11 +8,15 @@ using UnityEngine;
 public class FishObject : ScriptableObject
 {
     public Sprite Sprite;
-    public GameObject CoinType;
     public float MoveSpeed;
+    public float Scale;
+    [Header("Hunger")]
     public float Hunger;
     public float HungerRate;
+    [Header("Resources")]
+    public GameObject CoinType;
     public float coinDropInterval;
     public float coinValue;
+
 }
 

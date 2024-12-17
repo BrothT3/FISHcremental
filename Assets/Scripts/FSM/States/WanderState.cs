@@ -34,13 +34,15 @@ namespace Assets.Scripts.FSM
         }
         public override void Enter()
         {
-            Debug.Log("Entering Wander State", owner);
+            if (GameManager.Instance.LogStateChanges)
+                Debug.Log("Entering Wander State", owner);
             nextPos = Vector2.zero;
         }
 
         public override void Execute()
         {
-            Debug.Log("Wandering...", owner);
+            if (GameManager.Instance.LogStateChanges)
+                Debug.Log("Wandering...", owner);
             if (nextPos == Vector2.zero)
             {
                 nextPos = GetNextPos();
@@ -61,7 +63,8 @@ namespace Assets.Scripts.FSM
 
         public override void Exit()
         {
-            Debug.Log("Exiting Wander State", owner);
+            if (GameManager.Instance.LogStateChanges)
+                Debug.Log("Exiting Wander State", owner);
 
         }
     }

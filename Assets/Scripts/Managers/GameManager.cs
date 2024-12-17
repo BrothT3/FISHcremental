@@ -6,8 +6,11 @@ public class GameManager : MonoBehaviour
     public GameObject CoinObj;
     public GameObject FishPrefab;
     public InputManager IP;
+    public ResourceManager RM;
     public GameObject FishContainer;
     public GameObject CoinContainer;
+    public bool LogStateChanges;
+
     public void Awake()
     {
         if (Instance != null && Instance != this)

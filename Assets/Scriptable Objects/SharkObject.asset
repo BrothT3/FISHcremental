@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6dc8d352dc051548982417d45bbd5a6, type: 3}
-  m_Name: ClownFish
+  m_Name: SharkObject
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 3577127785787398535, guid: b73d7110a6b213c4ab61a06f8bda84f4, type: 3}
-  CoinType: {fileID: 0}
-  MoveSpeed: 1
+  Sprite: {fileID: 8722153235681063118, guid: 2b956992264a33c458ee79e4b24409fa, type: 3}
+  MoveSpeed: 2
+  Scale: 2.5
   Hunger: 0
-  HungerRate: 1
-  coinDropInterval: 10
+  HungerRate: 1.5
+  CoinType: {fileID: 961627154849592079, guid: 2e96b7202b450b542bd9adde893885b6, type: 3}
+  coinDropInterval: 5
   coinValue: 5

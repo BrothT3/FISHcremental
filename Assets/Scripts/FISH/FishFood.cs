@@ -10,10 +10,10 @@ namespace Assets.Scripts
     public class FishFood : MonoBehaviour
     {
         [SerializeField]
-        private float FoodFallSpeed = 3f;
+        private float FoodFallSpeed = 60f;
         private Animator anim;
         private bool destroyTriggerSet;
-        private float currentFallSpeed = 10;
+        private float currentFallSpeed = 20;
 
         public int Nutrition = 10;
 

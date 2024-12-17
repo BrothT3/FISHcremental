@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    private float Coins;
     public Dictionary<string, int> resources = new Dictionary<string, int>();
     [SerializeField]
     private FishObject[] fISHes;
@@ -19,18 +18,19 @@ public class ResourceManager : MonoBehaviour
     public void Start()
     {
         FishCoin.OnCoinClicked += HandleCoinClicked;
+        resources.Add("coins", 10);
     }
-    public void AddCoins(float amount)
+    public void AddResource(string Resource, int amount)
     {
-        Coins += amount;
-        Debug.Log($"Coins increased by {amount}. Total coins: {Coins}");
+        resources[Resource] += amount;
+        Debug.Log($"Coins increased by {amount}. Total coins: {resources["coins"]}");
 
         // Notify listeners about the updated coin count
-        OnCoinsChanged?.Invoke(Coins);
+        OnCoinsChanged?.Invoke(amount);
     }
     private void HandleCoinClicked(float coinValue)
     {
-        AddCoins(coinValue);
+        AddResource("coins", (int)coinValue);
     }
 
     public bool CheckPurchase(string s, int i)
@@ -44,17 +44,21 @@ public class ResourceManager : MonoBehaviour
         if (resources[s] >= i)
             return true;
         else
+        {
+            Debug.Log($"can't afford cost of {i} with only {resources[s]} {s}");
             return false;
-    }  
+        }
+            
+    }
     public void PurchaseFish(string s, int i, int fishIndex)
     {
         if (!CheckPurchase(s, i))
             return;
 
+
         resources[s] -= i;
-        GameObject go = Instantiate(GameManager.Instance.FishPrefab);
+        GameObject go = Instantiate(GameManager.Instance.FishPrefab, GameManager.Instance.FishContainer.transform);
         go.GetComponent<FISH>().SetupFish(fISHes[fishIndex]);
-        Instantiate(go);
     }
 }
 

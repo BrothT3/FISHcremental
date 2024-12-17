@@ -25,7 +25,8 @@ namespace Assets.Scripts.FSM
 
         public override void Execute()
         {
-            Debug.Log("SearchingForFood", owner);
+            if (GameManager.Instance.LogStateChanges)
+                Debug.Log("SearchingForFood", owner);
             target = SearchForTarget();
             if (target != null)
             {
@@ -33,10 +34,10 @@ namespace Assets.Scripts.FSM
             }
             else
             {
-                if (nextPos ==  Vector2.zero)
+                if (nextPos == Vector2.zero)
                 {
                     nextPos = GetNextPos();
-                }    
+                }
             }
             MoveToNextPos();
             if (Vector2.Distance(owner.transform.position, nextPos) < 1)
@@ -52,8 +53,8 @@ namespace Assets.Scripts.FSM
                         owner.GetComponent<AIController>().FSM.ChangeState(new IdleState(owner));
                     }
                 }
-                else 
-                    nextPos = Vector2.zero;  
+                else
+                    nextPos = Vector2.zero;
             }
         }
         public Vector2 GetNextPos()

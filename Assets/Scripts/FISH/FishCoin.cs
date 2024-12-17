@@ -63,6 +63,7 @@ public class FishCoin : MonoBehaviour, IClickable
 
     public void DestroyCoin()
     {
+
         Destroy(this.gameObject);
     }
 }

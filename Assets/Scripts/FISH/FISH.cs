@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FISH : MonoBehaviour
 {
@@ -30,9 +31,11 @@ public class FISH : MonoBehaviour
         HungerRate = FO.HungerRate;
         coinDropInterval = FO.coinDropInterval;
         coinValue = FO.coinValue;
-        GetComponent<SpriteRenderer>().sprite = FO.Sprite;
         coinPrefab = FO.CoinType;
         CoinContainer = GameManager.Instance.CoinContainer.transform;
+        Image img = GetComponentInChildren<Image>();
+        img.sprite = FO.Sprite;
+        img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(FO.Scale, FO.Scale, FO.Scale);
     }
     private void DropCoin()
     {
