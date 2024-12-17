@@ -16,7 +16,10 @@ namespace Assets.Scripts
         private float currentFallSpeed = 20;
 
         public int Nutrition = 10;
-
+        private void Awake()
+        {
+            anim = GetComponent<Animator>();
+        }
         private void Update()
         {
             FoodFallDown();

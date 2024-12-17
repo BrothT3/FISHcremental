@@ -56,8 +56,7 @@ public class FishCoin : MonoBehaviour, IClickable
             {
                 anim.SetTrigger("DestroyCoin");
                 destroyTriggerSet = true;
-            }
-                
+            } 
         }
     }
 

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-    public interface IClickable
-    {
-        void OnLeftClick();
-    }
+public interface IClickable
+{
+    void OnLeftClick();
+}
 
