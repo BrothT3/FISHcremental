@@ -10,6 +10,8 @@ public class FISH : MonoBehaviour
     public float coinDropInterval = 5f;
     public float coinValue = 10f;
     public bool FacingRight;
+    [SerializeField]
+    private Transform CoinContainer;
     public Animator anim;
     private void Start()
     {
@@ -30,16 +32,16 @@ public class FISH : MonoBehaviour
         coinValue = FO.coinValue;
         GetComponent<SpriteRenderer>().sprite = FO.Sprite;
         coinPrefab = FO.CoinType;
+        CoinContainer = GameManager.Instance.CoinContainer.transform;
     }
     private void DropCoin()
     {
-        Canvas c = FindAnyObjectByType<Canvas>();
         GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
 
-        coin.transform.SetParent(c.transform, false);
+        coin.transform.SetParent(CoinContainer, false);
         Vector2 canvasPosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            c.GetComponent<RectTransform>(),
+            CoinContainer.GetComponent<RectTransform>(),
             RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position),
             Camera.main,
             out canvasPosition
