@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager instance;
-
     public static GameManager Instance;
     public GameObject CoinObj;
+    public GameObject FishPrefab;
     public InputManager IP;
     public void Awake()
     {
@@ -14,10 +13,9 @@ public class GameManager : MonoBehaviour
             Destroy(Instance);
         }
         else
-            instance = this;
+            Instance = this;
 
         Application.targetFrameRate = 60;
-        IP = new InputManager();
     }
     
 }

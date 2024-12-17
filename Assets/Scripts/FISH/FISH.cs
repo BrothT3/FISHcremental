@@ -21,6 +21,16 @@ public class FISH : MonoBehaviour
     {
         Hunger += HungerRate * Time.deltaTime;
     }
+    public void SetupFish(FishObject FO)
+    {
+        Hunger = FO.Hunger;
+        MoveSpeed = FO.MoveSpeed;
+        HungerRate = FO.HungerRate;
+        coinDropInterval = FO.coinDropInterval;
+        coinValue = FO.coinValue;
+        GetComponent<SpriteRenderer>().sprite = FO.Sprite;
+        coinPrefab = FO.CoinType;
+    }
     private void DropCoin()
     {
         Canvas c = FindAnyObjectByType<Canvas>();
@@ -34,7 +44,6 @@ public class FISH : MonoBehaviour
             Camera.main,
             out canvasPosition
         );
-
 
         coin.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
         FishCoin coinScript = coin.GetComponent<FishCoin>();
