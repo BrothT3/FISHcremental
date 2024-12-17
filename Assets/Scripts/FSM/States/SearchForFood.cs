@@ -55,7 +55,6 @@ namespace Assets.Scripts.FSM
                 else 
                     nextPos = Vector2.zero;  
             }
-
         }
         public Vector2 GetNextPos()
         {

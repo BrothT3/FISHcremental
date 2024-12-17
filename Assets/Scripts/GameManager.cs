@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
     public GameObject CoinObj;
+    public InputManager IP;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
             instance = this;
 
         Application.targetFrameRate = 60;
-        
+        IP = new InputManager();
     }
+    
 }
