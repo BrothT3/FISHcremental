@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 
 public class FishCoin : MonoBehaviour, IClickable
@@ -62,7 +61,6 @@ public class FishCoin : MonoBehaviour, IClickable
 
     public void DestroyCoin()
     {
-
         Destroy(this.gameObject);
     }
 }
