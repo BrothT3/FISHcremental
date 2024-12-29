@@ -16,7 +16,7 @@ namespace Assets.Scripts.FSM
         {
 
             Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-            Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
+            Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 870, Camera.main.nearClipPlane));
 
             float randomX = UnityEngine.Random.Range(bottomLeft.x, topRight.x);
             float randomY = UnityEngine.Random.Range(bottomLeft.y, topRight.y);

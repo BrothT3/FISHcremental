@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public ResourceManager RM;
     public GameObject FishContainer;
     public GameObject CoinContainer;
+    public GameObject FoodContainer;
     public bool LogStateChanges;
 
     public void Awake()

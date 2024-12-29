@@ -4,6 +4,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 
@@ -12,8 +13,9 @@ public class ResourceManager : MonoBehaviour
     public Dictionary<string, int> resources = new Dictionary<string, int>();
     [SerializeField]
     private FishObject[] fISHes;
+    public TextMeshProUGUI CoinsText;
     // Event to notify when Coins change
-    public event Action<float> OnCoinsChanged;
+    public event Action<int> OnCoinsChanged;
 
     public void Start()
     {
@@ -26,7 +28,8 @@ public class ResourceManager : MonoBehaviour
         Debug.Log($"Coins increased by {amount}. Total coins: {resources["coins"]}");
 
         // Notify listeners about the updated coin count
-        OnCoinsChanged?.Invoke(amount);
+        int newAmount = resources[Resource];
+        OnCoinsChanged?.Invoke(newAmount);
     }
     private void HandleCoinClicked(float coinValue)
     {
@@ -50,6 +53,7 @@ public class ResourceManager : MonoBehaviour
         }
             
     }
+
     public void PurchaseFish(string s, int i, int fishIndex)
     {
         if (!CheckPurchase(s, i))
@@ -59,6 +63,8 @@ public class ResourceManager : MonoBehaviour
         resources[s] -= i;
         GameObject go = Instantiate(GameManager.Instance.FishPrefab, GameManager.Instance.FishContainer.transform);
         go.GetComponent<FISH>().SetupFish(fISHes[fishIndex]);
+        int newAmount = resources[s];
+        OnCoinsChanged?.Invoke(newAmount);
     }
 }
 
