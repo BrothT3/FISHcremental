@@ -14,6 +14,7 @@ namespace Assets.Scripts
         private Animator anim;
         private bool destroyTriggerSet;
         private float currentFallSpeed = 20;
+        public float FoodQuality = 1;
 
         public int Nutrition = 10;
         private void Awake()

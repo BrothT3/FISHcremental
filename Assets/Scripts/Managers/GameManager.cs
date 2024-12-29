@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject FoodContainer;
     public bool LogStateChanges;
 
+
     public void Awake()
     {
         if (Instance != null && Instance != this)

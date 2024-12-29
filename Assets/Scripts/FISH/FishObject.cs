@@ -10,6 +10,7 @@ public class FishObject : ScriptableObject
     public Sprite Sprite;
     public float MoveSpeed;
     public float Scale;
+    public float MaxScale;
     [Header("Hunger")]
     public float Hunger;
     public float HungerRate;

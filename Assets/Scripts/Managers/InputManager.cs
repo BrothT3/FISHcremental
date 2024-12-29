@@ -6,8 +6,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+public enum CLICKTYPE { FEED, SELL}
 public class InputManager : MonoBehaviour
 {
+    public CLICKTYPE ClickType = CLICKTYPE.FEED;
     public InputSystem_Actions inputActions;
     public bool LeftMouseClicked = false;
     public Vector2 mPos { get; private set; }
@@ -62,4 +64,5 @@ public class InputManager : MonoBehaviour
         }
         LeftMouseClicked = true;
     }
+
 }

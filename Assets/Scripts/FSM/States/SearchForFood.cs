@@ -47,6 +47,7 @@ namespace Assets.Scripts.FSM
                     FishFood ff = target.GetComponent<FishFood>();
                     FISH f = owner.GetComponent<FISH>();
                     f.Hunger -= ff.Nutrition;
+                    f.GrowFish(ff);
                     GameObject.Destroy(ff.gameObject);
                     if (owner.GetComponent<FISH>().Hunger < 30)
                     {
@@ -60,7 +61,7 @@ namespace Assets.Scripts.FSM
         public Vector2 GetNextPos()
         {
             Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-            Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
+            Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 870, Camera.main.nearClipPlane));
 
             float randomX = UnityEngine.Random.Range(bottomLeft.x, topRight.x);
             float randomY = UnityEngine.Random.Range(bottomLeft.y, topRight.y);

@@ -1,8 +1,9 @@
+using Assets.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FISH : MonoBehaviour
+public class FISH : MonoBehaviour, IClickable
 {
     public float MoveSpeed = 2f;
     public float Hunger = 0;
@@ -13,6 +14,10 @@ public class FISH : MonoBehaviour
     public bool FacingRight;
     [SerializeField]
     private Transform CoinContainer;
+    [SerializeField]
+    float maxScale;
+    [SerializeField]
+    float currentScale;
     public Animator anim;
     private void Start()
     {
@@ -36,6 +41,8 @@ public class FISH : MonoBehaviour
         Image img = GetComponentInChildren<Image>();
         img.sprite = FO.Sprite;
         img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(FO.Scale, FO.Scale, FO.Scale);
+        currentScale = FO.Scale;
+        maxScale = FO.MaxScale;
     }
     private void DropCoin()
     {
@@ -69,6 +76,21 @@ public class FISH : MonoBehaviour
             FacingRight = false;
             anim.SetTrigger("FaceLeft");
         }
+    }
+
+    public void GrowFish(FishFood ff)
+    {
+        Image img = GetComponentInChildren<Image>();
+        currentScale = currentScale * (1 + (ff.FoodQuality / 10));
+        img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(currentScale, currentScale, currentScale);
+    }
+
+    public void OnLeftClick()
+    {
+        if (GameManager.Instance.IP.ClickType != CLICKTYPE.SELL)
+            return;
+
+        Destroy(gameObject);
     }
 }
 

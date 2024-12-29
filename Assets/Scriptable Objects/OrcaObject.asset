@@ -15,6 +15,7 @@ MonoBehaviour:
   Sprite: {fileID: 7573505386217735928, guid: f00015e240921ea4d963d8f7d85e5685, type: 3}
   MoveSpeed: 0.3
   Scale: 4
+  MaxScale: 8
   Hunger: 0
   HungerRate: 2
   CoinType: {fileID: 961627154849592079, guid: 2e96b7202b450b542bd9adde893885b6, type: 3}

@@ -11,6 +11,9 @@ public class WaterTank : MonoBehaviour, IClickable
     }
     public void OnLeftClick()
     {
+        if (GameManager.Instance.IP.ClickType != CLICKTYPE.FEED)
+            return;
+
         Canvas c = FindAnyObjectByType<Canvas>();
         GameObject food = Instantiate(FoodPellet, transform.position, Quaternion.identity);
 
