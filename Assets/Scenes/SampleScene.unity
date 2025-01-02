@@ -637,6 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FoodPellet: {fileID: 7681425982222136670, guid: 53ca394d7e587b2428b8799eb814da57, type: 3}
   HookClaw: {fileID: 1574392816}
+  MaxFoodPellets: 0
 --- !u!114 &334942379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,9 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89bae3e80c0efa4d933429acca2bbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FishIndex: 1
-  ResourceName: coins
-  cost: 10
+  FO: {fileID: 11400000, guid: 3311dd4015e6d444bb1c2eadf539cff0, type: 2}
 --- !u!1 &483600770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,9 +1303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89bae3e80c0efa4d933429acca2bbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FishIndex: 2
-  ResourceName: coins
-  cost: 30
+  FO: {fileID: 11400000, guid: de063403e928bd84dbec7102baac5038, type: 2}
 --- !u!1 &769447674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,11 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aefedcb2db6a14498415603a4ec2bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fISHes:
-  - {fileID: 11400000, guid: b09219d382909174fa51d9426d3a4591, type: 2}
-  - {fileID: 11400000, guid: 3311dd4015e6d444bb1c2eadf539cff0, type: 2}
-  - {fileID: 11400000, guid: de063403e928bd84dbec7102baac5038, type: 2}
-  CoinsText: {fileID: 0}
+  CoinsText: {fileID: 1566525910}
 --- !u!4 &1384490204
 Transform:
   m_ObjectHideFlags: 0
@@ -2040,7 +2033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27.42, y: 356.38}
+  m_AnchoredPosition: {x: -965, y: 356.38}
   m_SizeDelta: {x: 93.54, y: 52.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574392818
@@ -2296,9 +2289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89bae3e80c0efa4d933429acca2bbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FishIndex: 0
-  ResourceName: coins
-  cost: 5
+  FO: {fileID: 11400000, guid: b09219d382909174fa51d9426d3a4591, type: 2}
 --- !u!114 &2090844050
 MonoBehaviour:
   m_ObjectHideFlags: 0

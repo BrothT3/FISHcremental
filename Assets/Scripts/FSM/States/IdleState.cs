@@ -25,9 +25,9 @@ namespace Assets.Scripts.FSM.States
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new WanderState(owner));
             }
-            if (owner.GetComponent<FISH>().Hunger > 10)
+            if (owner.GetComponent<FISH>().Hunger > 30)
             {
-                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFood(owner));
+                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFoodState(owner));
 
             }
         }
@@ -35,6 +35,16 @@ namespace Assets.Scripts.FSM.States
         public override void Exit()
         {
             owner.GetComponent<FISH>().anim.SetBool("FishIdle", false);
+        }
+
+        public override void SendCommand(ICommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override T SendResultCommand<T>(IResultCommand<T> command)
+        {
+            throw new NotImplementedException();
         }
     }
 }

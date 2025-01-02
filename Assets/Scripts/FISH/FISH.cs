@@ -1,13 +1,17 @@
 using Assets.Scripts;
+using Assets.Scripts.FSM;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FISH : MonoBehaviour, IClickable
+public class FISH : MonoBehaviour
 {
     public float MoveSpeed = 2f;
     public float Hunger = 0;
     public float HungerRate = 0.5f;
+    public float MaxHunger = 100;
+    private Color startColor = Color.white; // original color (not gray)
+    private Color endColor = Color.gray; // fully gray
     public GameObject coinPrefab;
     public float coinDropInterval = 5f;
     public float coinValue = 10f;
@@ -16,9 +20,13 @@ public class FISH : MonoBehaviour, IClickable
     private Transform CoinContainer;
     [SerializeField]
     float maxScale;
-    [SerializeField]
-    float currentScale;
+    public float defaultScale;
+    public float currentScale;
+    public float GrowthModifier = 0;
+    public bool carnivore;
     public Animator anim;
+    public bool notDying = true;
+
     private void Start()
     {
         // Start dropping coins at regular intervals
@@ -28,6 +36,20 @@ public class FISH : MonoBehaviour, IClickable
     public void Update()
     {
         Hunger += HungerRate * Time.deltaTime;
+        if (Hunger >= 60)
+        {
+            // Calculate the lerp factor based on the hunger value (normalized between 0 and 1)
+            float lerpFactor = Mathf.InverseLerp(60, 100, Hunger);
+
+            // Lerp between the start color (white) and the end color (gray)
+            GetComponentInChildren<Image>().color = Color.Lerp(startColor, endColor, lerpFactor);
+        }
+        if (Hunger >= 100 && notDying)
+        {
+            notDying = false;
+            anim.SetTrigger("Death");
+            GetComponent<AIController>().FSM.ChangeState(new DyingState(gameObject));
+        }
     }
     public void SetupFish(FishObject FO)
     {
@@ -42,7 +64,10 @@ public class FISH : MonoBehaviour, IClickable
         img.sprite = FO.Sprite;
         img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(FO.Scale, FO.Scale, FO.Scale);
         currentScale = FO.Scale;
+        defaultScale = currentScale;
         maxScale = FO.MaxScale;
+        carnivore = FO.Carnivore;
+        gameObject.tag = FO.Tag;
     }
     private void DropCoin()
     {
@@ -61,7 +86,7 @@ public class FISH : MonoBehaviour, IClickable
         FishCoin coinScript = coin.GetComponent<FishCoin>();
         if (coinScript != null)
         {
-            coinScript.SetupCoin(coinValue);
+            coinScript.SetupCoin(coinValue, GrowthModifier);
         }
     }
     public void ChangeFacing(float x)
@@ -80,17 +105,26 @@ public class FISH : MonoBehaviour, IClickable
 
     public void GrowFish(FishFood ff)
     {
+        float newGrowthModifier = GrowthModifier + ff.FoodQuality / 10;
+        if (defaultScale * (1 + newGrowthModifier) >= maxScale)
+            return;
+
         Image img = GetComponentInChildren<Image>();
-        currentScale = currentScale * (1 + (ff.FoodQuality / 10));
+        GrowthModifier += newGrowthModifier;
+        currentScale = defaultScale * (1 + GrowthModifier);
+        img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(currentScale, currentScale, currentScale);
+    }
+    public void GrowFish(FISH ff)
+    {
+        float newGrowthModifier = GrowthModifier + 0.1f;
+        if (defaultScale * (1 + newGrowthModifier) >= maxScale)
+            return;
+        Image img = GetComponentInChildren<Image>();
+        GrowthModifier += 0.1f;
+        currentScale = defaultScale * (1 + (GrowthModifier));
         img.gameObject.GetComponent<RectTransform>().localScale = new Vector3(currentScale, currentScale, currentScale);
     }
 
-    public void OnLeftClick()
-    {
-        if (GameManager.Instance.IP.ClickType != CLICKTYPE.SELL)
-            return;
 
-        Destroy(gameObject);
-    }
 }
 

@@ -3,12 +3,7 @@ using UnityEngine.UI;
 
 public class PurchaseFishButton : MonoBehaviour, IClickable
 {
-    [SerializeField]
-    private int FishIndex;
-    [SerializeField]
-    private string ResourceName;
-    [SerializeField]
-    private int cost;
+    public FishObject FO;
     private Image Image;
 
     public void Start()
@@ -18,12 +13,12 @@ public class PurchaseFishButton : MonoBehaviour, IClickable
     }
     public void OnLeftClick()
     {
-        GameManager.Instance.RM.PurchaseFish(ResourceName, cost, FishIndex);
+        GameManager.Instance.RM.PurchaseFish(FO.ResourceName, FO.cost, FO);
     }
 
     public void CheckAvailability(int newAmount)
     {
-        if (newAmount >= cost)
+        if (newAmount >= FO.cost)
         {
             Image.color = Color.white;
         }

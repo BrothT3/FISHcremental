@@ -10,7 +10,6 @@ namespace Assets.Scripts.FSM
     public class AIController : MonoBehaviour
     {
         public FSM FSM;
-
         private void Start()
         {
             FSM = new FSM();

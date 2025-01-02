@@ -56,7 +56,7 @@ namespace Assets.Scripts.FSM
             }
             if (owner.GetComponent<FISH>().Hunger > 10)
             {
-                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFood(owner));
+                owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFoodState(owner));
 
             }
         }
@@ -66,6 +66,16 @@ namespace Assets.Scripts.FSM
             if (GameManager.Instance.LogStateChanges)
                 Debug.Log("Exiting Wander State", owner);
 
+        }
+
+        public override void SendCommand(ICommand command)
+        {
+
+        }
+
+        public override T SendResultCommand<T>(IResultCommand<T> command)
+        {
+            throw new NotImplementedException();
         }
     }
 }

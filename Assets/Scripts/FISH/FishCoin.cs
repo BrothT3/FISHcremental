@@ -28,9 +28,10 @@ public class FishCoin : MonoBehaviour, IClickable
         OnCoinClicked?.Invoke(CoinReward);
         Destroy(gameObject); // Remove the coin after it's clicked
     }
-    public void SetupCoin(float CoinRew)
+    public void SetupCoin(float CoinRew, float growthModifier)
     {
-        CoinReward = CoinRew;
+        CoinReward = CoinRew * (1+growthModifier);
+        transform.localScale = new Vector3 (1 + growthModifier, 1 + growthModifier, 1 + growthModifier);
         anim = GetComponent<Animator>();
     }
 

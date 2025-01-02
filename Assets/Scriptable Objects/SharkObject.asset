@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: SharkObject
   m_EditorClassIdentifier: 
   Sprite: {fileID: 8722153235681063118, guid: 2b956992264a33c458ee79e4b24409fa, type: 3}
-  MoveSpeed: 2
+  MoveSpeed: 2.5
   Scale: 2.5
   MaxScale: 5
+  Carnivore: 1
+  Tag: SharkFish
   Hunger: 0
-  HungerRate: 1.5
+  MaxHunger: 0
+  HungerRate: 0.35
   CoinType: {fileID: 961627154849592079, guid: 2e96b7202b450b542bd9adde893885b6, type: 3}
   coinDropInterval: 5
   coinValue: 5
+  ResourceName: coins
+  cost: 100

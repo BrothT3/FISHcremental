@@ -10,7 +10,6 @@ namespace Assets.Scripts.FSM
     public abstract class State
     {
         protected GameObject owner;
-
         public State(GameObject owner)
         {
             this.owner = owner;
@@ -19,5 +18,7 @@ namespace Assets.Scripts.FSM
         public abstract void Enter(); // Called when entering the state
         public abstract void Execute(); // Called on Update
         public abstract void Exit(); // Called when leaving the state
+        public abstract void SendCommand(ICommand command);
+        public abstract T SendResultCommand<T>(IResultCommand<T> command);
     }
 }

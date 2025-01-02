@@ -11,8 +11,6 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     public Dictionary<string, int> resources = new Dictionary<string, int>();
-    [SerializeField]
-    private FishObject[] fISHes;
     public TextMeshProUGUI CoinsText;
     // Event to notify when Coins change
     public event Action<int> OnCoinsChanged;
@@ -20,12 +18,22 @@ public class ResourceManager : MonoBehaviour
     public void Start()
     {
         FishCoin.OnCoinClicked += HandleCoinClicked;
-        resources.Add("coins", 10);
+        resources.Add("coins", 20);
+        OnCoinsChanged?.Invoke(10);
     }
     public void AddResource(string Resource, int amount)
     {
         resources[Resource] += amount;
         Debug.Log($"Coins increased by {amount}. Total coins: {resources["coins"]}");
+
+        // Notify listeners about the updated coin count
+        int newAmount = resources[Resource];
+        OnCoinsChanged?.Invoke(newAmount);
+    }
+    public void RemoveResource(string Resource, int amount)
+    {
+        resources[Resource] -= amount;
+        Debug.Log($"Coins decreased by {amount}. Total coins: {resources["coins"]}");
 
         // Notify listeners about the updated coin count
         int newAmount = resources[Resource];
@@ -54,15 +62,14 @@ public class ResourceManager : MonoBehaviour
             
     }
 
-    public void PurchaseFish(string s, int i, int fishIndex)
+    public void PurchaseFish(string s, int i, FishObject FO)
     {
         if (!CheckPurchase(s, i))
             return;
 
-
         resources[s] -= i;
         GameObject go = Instantiate(GameManager.Instance.FishPrefab, GameManager.Instance.FishContainer.transform);
-        go.GetComponent<FISH>().SetupFish(fISHes[fishIndex]);
+        go.GetComponent<FISH>().SetupFish(FO);
         int newAmount = resources[s];
         OnCoinsChanged?.Invoke(newAmount);
     }

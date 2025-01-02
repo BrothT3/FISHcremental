@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: OrcaObject
   m_EditorClassIdentifier: 
   Sprite: {fileID: 7573505386217735928, guid: f00015e240921ea4d963d8f7d85e5685, type: 3}
-  MoveSpeed: 0.3
+  MoveSpeed: 0.8
   Scale: 4
   MaxScale: 8
+  Carnivore: 0
+  Tag: OrcaFish
   Hunger: 0
-  HungerRate: 2
+  MaxHunger: 0
+  HungerRate: 4
   CoinType: {fileID: 961627154849592079, guid: 2e96b7202b450b542bd9adde893885b6, type: 3}
   coinDropInterval: 30
   coinValue: 20
+  ResourceName: coins
+  cost: 50

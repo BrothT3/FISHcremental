@@ -11,13 +11,19 @@ public class FishObject : ScriptableObject
     public float MoveSpeed;
     public float Scale;
     public float MaxScale;
+    public bool Carnivore;
+    public string Tag;
     [Header("Hunger")]
     public float Hunger;
+    public float MaxHunger;
     public float HungerRate;
     [Header("Resources")]
     public GameObject CoinType;
     public float coinDropInterval;
     public float coinValue;
+    [Header("Purchase")]
+    public string ResourceName;
+    public int cost;
 
 }
 
