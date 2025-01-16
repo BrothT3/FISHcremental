@@ -17,6 +17,7 @@ public class FishObject : ScriptableObject
     public float Hunger;
     public float MaxHunger;
     public float HungerRate;
+    public float HungryRange;
     [Header("Resources")]
     public GameObject CoinType;
     public float coinDropInterval;

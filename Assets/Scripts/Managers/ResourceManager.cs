@@ -18,7 +18,7 @@ public class ResourceManager : MonoBehaviour
     public void Start()
     {
         FishCoin.OnCoinClicked += HandleCoinClicked;
-        resources.Add("coins", 20);
+        resources.Add("coins", 2000);
         OnCoinsChanged?.Invoke(10);
     }
     public void AddResource(string Resource, int amount)

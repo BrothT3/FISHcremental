@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Assets.Scripts.FSM
 {
@@ -12,31 +13,19 @@ namespace Assets.Scripts.FSM
     {
         public WanderState(GameObject owner) : base(owner) { }
         private Vector2 nextPos = Vector2.zero;
-        public Vector2 GetNextPos()
-        {
-
-            Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-            Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 870, Camera.main.nearClipPlane));
-
-            float randomX = UnityEngine.Random.Range(bottomLeft.x, topRight.x);
-            float randomY = UnityEngine.Random.Range(bottomLeft.y, topRight.y);
-
-            return new Vector2(randomX, randomY);
-        }
-        public void MoveToNextPos()
-        {
-            Vector2 pos = owner.transform.position;
-            Vector2 movedir = nextPos - pos;
-            movedir.Normalize();
-            owner.GetComponent<FISH>().ChangeFacing(movedir.x);
-            pos += movedir * owner.GetComponent<FISH>().MoveSpeed * Time.deltaTime;
-            owner.transform.position = pos;
-        }
+        private ObjectPool<FindNextPosCommand> findNextPosPool;
+        private ObjectPool<MoveCommand> moveCommandPool;
+        private FISH fish;
         public override void Enter()
         {
             if (GameManager.Instance.LogStateChanges)
                 Debug.Log("Entering Wander State", owner);
             nextPos = Vector2.zero;
+            fish = owner.GetComponent<FISH>();
+            fish.currentState = CURRENTSTATE.WAMDER;
+            findNextPosPool = new ObjectPool<FindNextPosCommand>(() => new FindNextPosCommand());
+            moveCommandPool = new ObjectPool<MoveCommand>(() => new MoveCommand(owner.transform, Vector2.zero, fish.MoveSpeed));
+            nextPos = SendResultCommand(findNextPosPool.Get());
         }
 
         public override void Execute()
@@ -45,19 +34,20 @@ namespace Assets.Scripts.FSM
                 Debug.Log("Wandering...", owner);
             if (nextPos == Vector2.zero)
             {
-                nextPos = GetNextPos();
-
+                nextPos = SendResultCommand(findNextPosPool.Get());
+                
             }
-            MoveToNextPos();
+            SendCommand(moveCommandPool.Get());
             if (Vector2.Distance(owner.transform.position, nextPos) < 1)
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new IdleState(owner));
+                return;
                 //nextPos = GetNextPos();
             }
-            if (owner.GetComponent<FISH>().Hunger > 10)
+            if (owner.GetComponent<FISH>().Hungry)
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFoodState(owner));
-
+                return;
             }
         }
 
@@ -70,12 +60,12 @@ namespace Assets.Scripts.FSM
 
         public override void SendCommand(ICommand command)
         {
-
+            command.Execute();
         }
 
         public override T SendResultCommand<T>(IResultCommand<T> command)
         {
-            throw new NotImplementedException();
+            return command.Execute();
         }
     }
 }

@@ -21,6 +21,7 @@ MonoBehaviour:
   Hunger: 0
   MaxHunger: 0
   HungerRate: 0.35
+  HungryRange: 60
   CoinType: {fileID: 961627154849592079, guid: 2e96b7202b450b542bd9adde893885b6, type: 3}
   coinDropInterval: 5
   coinValue: 5

@@ -14,6 +14,7 @@ namespace Assets.Scripts.FSM.States
         public float timer;
         public override void Enter()
         {
+            owner.GetComponent<FISH>().currentState = CURRENTSTATE.IDLE;
             timer = Random.Range(0.2f, 0.6f);
             owner.GetComponent<FISH>().anim.SetBool("FishIdle", true);
         }
@@ -24,11 +25,12 @@ namespace Assets.Scripts.FSM.States
             if (timer < 0)
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new WanderState(owner));
+                return;
             }
-            if (owner.GetComponent<FISH>().Hunger > 30)
+            if (owner.GetComponent<FISH>().Hungry)
             {
                 owner.GetComponent<AIController>().FSM.ChangeState(new SearchForFoodState(owner));
-
+                return;
             }
         }
 

@@ -3,13 +3,15 @@ using Assets.Scripts.FSM;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+public enum CURRENTSTATE { IDLE, SEARCHFORFOOD, WAMDER, DYING}
 public class FISH : MonoBehaviour
 {
     public float MoveSpeed = 2f;
     public float Hunger = 0;
     public float HungerRate = 0.5f;
     public float MaxHunger = 100;
+    public bool Hungry = false;
+    public float HungryRange = 30;
     private Color startColor = Color.white; // original color (not gray)
     private Color endColor = Color.gray; // fully gray
     public GameObject coinPrefab;
@@ -26,6 +28,7 @@ public class FISH : MonoBehaviour
     public bool carnivore;
     public Animator anim;
     public bool notDying = true;
+    public CURRENTSTATE currentState;
 
     private void Start()
     {
@@ -50,12 +53,19 @@ public class FISH : MonoBehaviour
             anim.SetTrigger("Death");
             GetComponent<AIController>().FSM.ChangeState(new DyingState(gameObject));
         }
+
+        if (Hunger > HungryRange)
+            Hungry = true;
+        else
+            Hungry = false;
     }
     public void SetupFish(FishObject FO)
     {
         Hunger = FO.Hunger;
         MoveSpeed = FO.MoveSpeed;
         HungerRate = FO.HungerRate;
+        carnivore = FO.Carnivore;
+        HungryRange = FO.HungryRange;
         coinDropInterval = FO.coinDropInterval;
         coinValue = FO.coinValue;
         coinPrefab = FO.CoinType;
@@ -66,9 +76,10 @@ public class FISH : MonoBehaviour
         currentScale = FO.Scale;
         defaultScale = currentScale;
         maxScale = FO.MaxScale;
-        carnivore = FO.Carnivore;
+        
         gameObject.tag = FO.Tag;
     }
+
     private void DropCoin()
     {
         GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);

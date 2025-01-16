@@ -91,7 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FoodFallSpeed: 3
-  Nutrition: 10
+  FoodQuality: 1
+  Nutrition: 50
 --- !u!95 &5246573389695038135
 Animator:
   serializedVersion: 7

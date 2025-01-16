@@ -13,7 +13,7 @@ namespace Assets.Scripts.FSM
 
         public override void Enter()
         {
-
+            owner.GetComponent<FISH>().currentState = CURRENTSTATE.DYING;
         }
 
         public override void Execute()

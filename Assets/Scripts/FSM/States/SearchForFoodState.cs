@@ -24,6 +24,7 @@ namespace Assets.Scripts.FSM
         public override void Enter()
         {
             fish = owner.GetComponent<FISH>();
+            fish.currentState = CURRENTSTATE.SEARCHFORFOOD;
             nextPos = Vector2.zero;
             searchFoodPool = new ObjectPool<SearchFoodCommand>(() => new SearchFoodCommand(owner.transform));
             findNextPosPool = new ObjectPool<FindNextPosCommand>(() => new FindNextPosCommand());
@@ -66,7 +67,7 @@ namespace Assets.Scripts.FSM
                         f.Hunger -= ff.Nutrition;
                         f.GrowFish(ff);
                         GameObject.Destroy(ff.gameObject);
-                        if (owner.GetComponent<FISH>().Hunger < 30)
+                        if (owner.GetComponent<FISH>().Hungry)
                         {
                             owner.GetComponent<AIController>().FSM.ChangeState(new IdleState(owner));
                         }
